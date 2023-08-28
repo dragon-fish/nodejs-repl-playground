@@ -1,0 +1,32 @@
+{
+  "name": "repl-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "start1": "node --loader esbuild-register/loader -r esbuild-register src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/intercept-stdout": "^0.1.0",
+    "@types/keypress": "^2.0.30",
+    "@types/node": "^18",
+    "esbuild-register": "^3.4.2",
+    "tsx": "^3.12.7",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/capture-console": "^1.0.1",
+    "ansi-escapes": "^6.2.0",
+    "capture-console": "^1.0.1",
+    "cli-cursor": "^4.0.0",
+    "intercept-stdout": "^0.1.2",
+    "keypress": "^0.2.1",
+    "prompts": "^2.4.2",
+    "restore-cursor": "^4.0.0"
+  }
+}
