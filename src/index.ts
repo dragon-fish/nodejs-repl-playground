@@ -68,6 +68,10 @@ rl.on('line', (text) => {
 process.stdin.on('keypress', (str, key) => {
   if (key.name === 'backspace') {
     writeLog('[BACKSPACE]')
+    if (rl.line.length <= 0) return
+    process.stdout.write(
+      ansi.cursorLeft + ansi.cursorPrevLine + ansi.eraseDown + getInputLine()
+    )
   } else if (
     !key.ctrl &&
     !key.meta &&
