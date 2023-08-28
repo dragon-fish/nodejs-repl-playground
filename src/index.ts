@@ -15,7 +15,7 @@ function writeLog(content: string) {
 let i = 0
 const interval = setInterval(() => {
   console.log(`BOT: whatever#${i++}`)
-}, 5000)
+}, 1000)
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -23,6 +23,7 @@ const rl = readline.createInterface({
   prompt: '> ',
 })
 const getInputLine = () => `> ${rl.line}`
+process.stdout.write(getInputLine())
 
 // 正确处理退出事件，否则一辈子都退出不了
 rl.on('close', () => {
@@ -32,12 +33,15 @@ rl.on('close', () => {
 
 // 拦截输出，确保用户输入行被置于最后一行
 intercept((text) => {
-  text = text.trim()
+  const trimedText = text.trim()
   writeLog('[OUTPUT_INTERCEPT]' + text)
   const cmdStr = getInputLine()
 
   // 如果输出是ansi控制字符/回车键，不做特殊处理
-  if ((text.startsWith('\u001B[') || text === '\n') && text !== cmdStr) {
+  if (
+    (trimedText.startsWith('\u001B[') || trimedText === '\n') &&
+    trimedText !== cmdStr
+  ) {
     return
   }
 
@@ -46,9 +50,10 @@ intercept((text) => {
     return ''
   }
 
-  writeLog(text)
   // 清除用户输入行，重置光标到行首，打印最新输出，还原用户输入
-  process.stdout.write(ansi.cursorLeft + ansi.eraseLine + text + '\n' + cmdStr)
+  process.stdout.write(
+    ansi.cursorLeft + ansi.eraseLine + trimedText + '\n' + cmdStr
+  )
 
   return ''
 })
